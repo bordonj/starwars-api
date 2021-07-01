@@ -5,10 +5,10 @@ import './css/styles.css';
 import StarWars from './js/star-wars.js';
 // import { Project } from 'js/project';
 
+
 let getElements = (response) => {
   let results = response.results;
-  console.log('response', response);
-  console.log('response results', results);
+  
   let outputStr = '';
   console.log('results[0].name', results[0].name);
 
@@ -31,9 +31,8 @@ let getElements = (response) => {
 
 async function makeApiCall(choice) {
   const response = await StarWars.get(choice);
-  // if 
   console.log('starwars response', response);
-  getElements(response);
+  getElements(response.data);
 }
 
 $(document).ready(() => {
