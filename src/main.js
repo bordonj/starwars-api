@@ -7,7 +7,13 @@ import StarWars from './js/star-wars.js';
 
 
 let getElements = (response) => {
-  let results = response.results;
+  let results;
+  if(response.data) {
+    results = response.data.results;
+  } else {
+    results = response.results;
+  }
+  
   
   let outputStr = '';
   console.log('results[0].name', results[0].name);
@@ -25,15 +31,32 @@ let getElements = (response) => {
     }
     console.log('outputStr', outputStr);
   }
-  $('.list').html(outputStr);
+  $('.list').append(outputStr);
 
 };
-
+async function getMore(choice) {
+  console.log('getmore choice', choice.next);
+  try {
+    const results = await fetch(choice.next);
+      if (!results.ok) {
+        throw Error(results.statusText);
+      }
+      let parsed = await results.json();
+      console.log('parsed, results', parsed.results);
+      console.log('parsed', parsed);
+      getElements(parsed);
+  } catch(error) {
+    return error.message;
+  }
+}
 async function makeApiCall(choice) {
   const response = await StarWars.get(choice);
   console.log('starwars response', response);
-  getElements(response.data);
+  getElements(response);
+  getMore(response.data);
 }
+
+
 
 $(document).ready(() => {
   $('.form-elements').submit((e) => {
