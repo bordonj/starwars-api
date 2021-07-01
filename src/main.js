@@ -33,6 +33,8 @@ let getElements = (response) => {
   }
   $('.list').append(outputStr);
 
+
+
 };
 async function getMore(choice) {
   console.log('getmore choice', choice.next);
@@ -61,6 +63,7 @@ async function makeApiCall(choice) {
 $(document).ready(() => {
   $('.form-elements').submit((e) => {
     e.preventDefault();
+    $('.list').text('');
     let selected = $('#dropdown').val();
     console.log('selected', selected);
 
