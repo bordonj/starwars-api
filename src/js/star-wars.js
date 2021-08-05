@@ -4,7 +4,7 @@ export default class StarWars {
 
   static async get(choice) {
     try {
-      return await axios.get(`https://swapi.dev/api/${choice}/?page=1`);
+      return await axios.get(`https://swapi.py4e.com/api/${choice}/`);
     } catch(err) {
       console.log('err', err);
     }
